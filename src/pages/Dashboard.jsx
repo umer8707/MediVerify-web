@@ -14,7 +14,6 @@ import {
 } from 'chart.js'
 import KPICard from '../components/KPICard'
 import { mockKPIs, mockScanData, mockGenuineVsSuspicious, mockTopCities } from '../data/mockData'
-import './Dashboard.css'
 
 ChartJS.register(
   CategoryScale,
@@ -33,28 +32,15 @@ const Dashboard = ({ userRole }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        position: 'top',
-      },
+      legend: { position: 'top' },
       tooltip: {
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12,
-        titleFont: { size: 14 },
-        bodyFont: { size: 13 }
+        padding: 12
       }
     },
     scales: {
-      y: {
-        beginAtZero: true,
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)'
-        }
-      },
-      x: {
-        grid: {
-          display: false
-        }
-      }
+      y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } },
+      x: { grid: { display: false } }
     }
   }
 
@@ -62,24 +48,21 @@ const Dashboard = ({ userRole }) => {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        position: 'bottom',
-      },
-      tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        padding: 12
-      }
+      legend: { position: 'bottom' },
+      tooltip: { backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: 12 }
     }
   }
 
   return (
-    <div className="dashboard">
-      <div className="page-header">
-        <h1>Dashboard Overview</h1>
-        <p>Real-time monitoring of pharmaceutical product authenticity</p>
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+          Dashboard Overview
+        </h1>
+        <p className="text-gray-600">Real-time monitoring of pharmaceutical product authenticity</p>
       </div>
 
-      <div className="kpi-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         <KPICard
           title="Total Batches Registered"
           value={mockKPIs.totalBatches.toLocaleString()}
@@ -110,35 +93,29 @@ const Dashboard = ({ userRole }) => {
         />
       </div>
 
-      <div className="charts-grid">
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>QR Scans Over Time</h3>
-            <p className="chart-subtitle">Monthly scan activity trend</p>
-          </div>
-          <div className="chart-container">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">QR Scans Over Time</h3>
+          <p className="text-sm text-gray-600 mb-4">Monthly scan activity trend</p>
+          <div className="h-64">
             <Line data={mockScanData} options={chartOptions} />
           </div>
         </div>
 
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3>Genuine vs Suspicious Scans</h3>
-            <p className="chart-subtitle">Overall authenticity distribution</p>
-          </div>
-          <div className="chart-container">
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">Genuine vs Suspicious Scans</h3>
+          <p className="text-sm text-gray-600 mb-4">Overall authenticity distribution</p>
+          <div className="h-64">
             <Pie data={mockGenuineVsSuspicious} options={pieOptions} />
           </div>
         </div>
+      </div>
 
-        <div className="chart-card chart-card-full">
-          <div className="chart-header">
-            <h3>Top Cities with Scan Activity</h3>
-            <p className="chart-subtitle">Geographic distribution of product scans</p>
-          </div>
-          <div className="chart-container">
-            <Bar data={mockTopCities} options={chartOptions} />
-          </div>
+      <div className="bg-white rounded-xl p-6 shadow-sm">
+        <h3 className="text-lg font-semibold text-gray-900 mb-1">Top Cities with Scan Activity</h3>
+        <p className="text-sm text-gray-600 mb-4">Geographic distribution of product scans</p>
+        <div className="h-64">
+          <Bar data={mockTopCities} options={chartOptions} />
         </div>
       </div>
     </div>
@@ -146,4 +123,3 @@ const Dashboard = ({ userRole }) => {
 }
 
 export default Dashboard
-

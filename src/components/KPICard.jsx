@@ -1,16 +1,26 @@
 import React from 'react'
-import './KPICard.css'
 
 const KPICard = ({ title, value, icon, trend, color = 'blue' }) => {
+  const colorClasses = {
+    blue: 'text-primary-blue',
+    green: 'text-success-green',
+    red: 'text-alert-red',
+    orange: 'text-warning-orange'
+  }
+
   return (
-    <div className={`kpi-card kpi-card-${color}`}>
-      <div className="kpi-header">
-        <span className="kpi-icon">{icon}</span>
-        <span className="kpi-title">{title}</span>
+    <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-2xl">{icon}</span>
+        <span className="text-sm font-medium text-gray-600">{title}</span>
       </div>
-      <div className="kpi-value">{value}</div>
+      <div className={`text-3xl font-bold mb-2 ${colorClasses[color]}`}>
+        {value}
+      </div>
       {trend && (
-        <div className={`kpi-trend kpi-trend-${trend.type}`}>
+        <div className={`text-xs font-medium ${
+          trend.type === 'up' ? 'text-success-green' : 'text-alert-red'
+        }`}>
           {trend.value}
         </div>
       )}
@@ -19,4 +29,3 @@ const KPICard = ({ title, value, icon, trend, color = 'blue' }) => {
 }
 
 export default KPICard
-

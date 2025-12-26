@@ -9,7 +9,6 @@ import CounterfeitAlerts from './pages/CounterfeitAlerts'
 import Reports from './pages/Reports'
 import Settings from './pages/Settings'
 import Layout from './components/Layout'
-import './App.css'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import StatusBadge from '../components/StatusBadge'
 import { mockBatches } from '../data/mockData'
-import './QRManagement.css'
 
 const QRManagement = ({ userRole }) => {
   const [batches, setBatches] = useState(mockBatches)
@@ -53,112 +52,128 @@ const QRManagement = ({ userRole }) => {
   }
 
   return (
-    <div className="qr-management">
-      <div className="page-header">
-        <h1>QR Code Management</h1>
-        <p>Generate and manage QR codes for registered batches</p>
+    <div className="max-w-7xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">QR Code Management</h1>
+        <p className="text-gray-600">Generate and manage QR codes for registered batches</p>
       </div>
 
-      <div className="action-bar">
-        <div className="action-info">
-          <span className="selected-count">
+      <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-sm font-medium text-gray-600">
             {selectedBatches.length > 0 
               ? `${selectedBatches.length} batch(es) selected`
               : 'No batches selected'}
-          </span>
-        </div>
-        <div className="action-buttons">
-          <button 
-            onClick={handleGenerateQR}
-            className="action-btn primary-btn"
-            disabled={batches.filter(b => b.qrStatus === 'pending').length === 0}
-          >
-            🔲 Generate QR Codes
-          </button>
-          <button 
-            onClick={handleDownloadQR}
-            className="action-btn secondary-btn"
-            disabled={batches.filter(b => b.qrStatus === 'generated').length === 0}
-          >
-            📥 Download QR Codes (ZIP)
-          </button>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <button 
+              onClick={handleGenerateQR}
+              className="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-deep-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={batches.filter(b => b.qrStatus === 'pending').length === 0}
+            >
+              🔲 Generate QR Codes
+            </button>
+            <button 
+              onClick={handleDownloadQR}
+              className="px-4 py-2 bg-white text-primary-blue border border-primary-blue rounded-lg font-medium hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={batches.filter(b => b.qrStatus === 'generated').length === 0}
+            >
+              📥 Download QR Codes (ZIP)
+            </button>
+          </div>
         </div>
       </div>
 
       {showDownloadSuccess && (
-        <div className="success-banner">
+        <div className="bg-green-50 text-green-800 p-4 rounded-lg mb-6 text-sm font-medium">
           ✓ QR codes downloaded successfully! ZIP file contains all QR code images.
         </div>
       )}
 
-      <div className="table-card">
-        <table className="batches-table">
-          <thead>
-            <tr>
-              <th>
-                <input
-                  type="checkbox"
-                  checked={selectedBatches.length === batches.length && batches.length > 0}
-                  onChange={handleSelectAll}
-                />
-              </th>
-              <th>Batch ID</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Manufacturing Date</th>
-              <th>Expiry Date</th>
-              <th>Blockchain Status</th>
-              <th>QR Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {batches.length === 0 ? (
+      <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50">
               <tr>
-                <td colSpan="8" className="empty-state">
-                  <div className="empty-message">
-                    <span className="empty-icon">📦</span>
-                    <p>No batches registered yet</p>
-                    <small>Register a new batch to get started</small>
-                  </div>
-                </td>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <input
+                    type="checkbox"
+                    checked={selectedBatches.length === batches.length && batches.length > 0}
+                    onChange={handleSelectAll}
+                    className="w-4 h-4"
+                  />
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Batch ID</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Product Name</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Quantity</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Manufacturing Date</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Expiry Date</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Blockchain Status</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">QR Status</th>
               </tr>
-            ) : (
-              batches.map((batch) => (
-                <tr key={batch.id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedBatches.includes(batch.id)}
-                      onChange={() => handleSelectBatch(batch.id)}
-                    />
-                  </td>
-                  <td>
-                    <span className="batch-id">{batch.id}</span>
-                  </td>
-                  <td>{batch.productName}</td>
-                  <td>{batch.quantity.toLocaleString()}</td>
-                  <td>{new Date(batch.manufacturingDate).toLocaleDateString()}</td>
-                  <td>{new Date(batch.expiryDate).toLocaleDateString()}</td>
-                  <td>
-                    <StatusBadge status={batch.blockchainStatus} />
-                  </td>
-                  <td>
-                    <StatusBadge status={batch.qrStatus} />
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {batches.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className="px-4 py-12 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                      <span className="text-5xl opacity-50">📦</span>
+                      <p className="text-base font-medium text-gray-900">No batches registered yet</p>
+                      <small className="text-sm text-gray-500">Register a new batch to get started</small>
+                    </div>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                batches.map((batch) => (
+                  <tr key={batch.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedBatches.includes(batch.id)}
+                        onChange={() => handleSelectBatch(batch.id)}
+                        className="w-4 h-4"
+                      />
+                    </td>
+                    <td className="px-4 py-4">
+                      <span className="font-mono font-semibold text-primary-blue text-sm">{batch.id}</span>
+                    </td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{batch.productName}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{batch.quantity.toLocaleString()}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{new Date(batch.manufacturingDate).toLocaleDateString()}</td>
+                    <td className="px-4 py-4 text-sm text-gray-700">{new Date(batch.expiryDate).toLocaleDateString()}</td>
+                    <td className="px-4 py-4">
+                      <StatusBadge status={batch.blockchainStatus} />
+                    </td>
+                    <td className="px-4 py-4">
+                      <StatusBadge status={batch.qrStatus} />
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div className="info-card">
-        <h3>ℹ️ QR Code Information</h3>
-        <ul>
-          <li>Each QR code contains a unique product identifier linked to the blockchain</li>
-          <li>QR codes can only be generated for batches registered on blockchain</li>
-          <li>Downloaded ZIP files contain high-resolution QR code images in PNG format</li>
-          <li>Each QR code is scannable by consumers, pharmacies, and distributors</li>
+      <div className="bg-white rounded-xl p-6 shadow-sm">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">ℹ️ QR Code Information</h3>
+        <ul className="space-y-3">
+          <li className="flex items-start gap-3">
+            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-sm text-gray-600">Each QR code contains a unique product identifier linked to the blockchain</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-sm text-gray-600">QR codes can only be generated for batches registered on blockchain</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-sm text-gray-600">Downloaded ZIP files contain high-resolution QR code images in PNG format</span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-sm text-gray-600">Each QR code is scannable by consumers, pharmacies, and distributors</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -166,4 +181,3 @@ const QRManagement = ({ userRole }) => {
 }
 
 export default QRManagement
-
