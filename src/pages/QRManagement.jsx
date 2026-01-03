@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoQrCodeOutline, IoDownloadOutline, IoCheckmarkCircle, IoCubeOutline, IoInformationCircleOutline } from 'react-icons/io5'
 import StatusBadge from '../components/StatusBadge'
 import { mockBatches } from '../data/mockData'
 
@@ -68,17 +69,23 @@ const QRManagement = ({ userRole }) => {
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <button 
               onClick={handleGenerateQR}
-              className="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-deep-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-[#007AFF] text-white rounded-lg font-medium hover:bg-[#0051D5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={batches.filter(b => b.qrStatus === 'pending').length === 0}
             >
-              🔲 Generate QR Codes
+              <span className="flex items-center gap-2">
+                <IoQrCodeOutline />
+                <span>Generate QR Codes</span>
+              </span>
             </button>
             <button 
               onClick={handleDownloadQR}
-              className="px-4 py-2 bg-white text-primary-blue border border-primary-blue rounded-lg font-medium hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-white text-[#007AFF] border border-[#007AFF] rounded-lg font-medium hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={batches.filter(b => b.qrStatus === 'generated').length === 0}
             >
-              📥 Download QR Codes (ZIP)
+              <span className="flex items-center gap-2">
+                <IoDownloadOutline />
+                <span>Download QR Codes (ZIP)</span>
+              </span>
             </button>
           </div>
         </div>
@@ -86,7 +93,10 @@ const QRManagement = ({ userRole }) => {
 
       {showDownloadSuccess && (
         <div className="bg-green-50 text-green-800 p-4 rounded-lg mb-6 text-sm font-medium">
-          ✓ QR codes downloaded successfully! ZIP file contains all QR code images.
+          <span className="flex items-center gap-2">
+            <IoCheckmarkCircle className="text-lg" />
+            <span>QR codes downloaded successfully! ZIP file contains all QR code images.</span>
+          </span>
         </div>
       )}
 
@@ -117,7 +127,7 @@ const QRManagement = ({ userRole }) => {
                 <tr>
                   <td colSpan="8" className="px-4 py-12 text-center">
                     <div className="flex flex-col items-center gap-3">
-                      <span className="text-5xl opacity-50">📦</span>
+                      <IoCubeOutline className="text-5xl text-gray-300" />
                       <p className="text-base font-medium text-gray-900">No batches registered yet</p>
                       <small className="text-sm text-gray-500">Register a new batch to get started</small>
                     </div>
@@ -135,7 +145,7 @@ const QRManagement = ({ userRole }) => {
                       />
                     </td>
                     <td className="px-4 py-4">
-                      <span className="font-mono font-semibold text-primary-blue text-sm">{batch.id}</span>
+                      <span className="font-mono font-semibold text-[#007AFF] text-sm">{batch.id}</span>
                     </td>
                     <td className="px-4 py-4 text-sm text-gray-700">{batch.productName}</td>
                     <td className="px-4 py-4 text-sm text-gray-700">{batch.quantity.toLocaleString()}</td>
@@ -156,22 +166,25 @@ const QRManagement = ({ userRole }) => {
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">ℹ️ QR Code Information</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <IoInformationCircleOutline className="text-[#007AFF]" />
+          <span>QR Code Information</span>
+        </h3>
         <ul className="space-y-3">
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Each QR code contains a unique product identifier linked to the blockchain</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">QR codes can only be generated for batches registered on blockchain</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Downloaded ZIP files contain high-resolution QR code images in PNG format</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Each QR code is scannable by consumers, pharmacies, and distributors</span>
           </li>
         </ul>

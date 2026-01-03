@@ -3,15 +3,15 @@ import React from 'react'
 const StatusBadge = ({ status, size = 'medium' }) => {
   const getStatusConfig = (status) => {
     const configs = {
-      verified: { label: 'Verified', color: 'green', icon: '✓' },
-      pending: { label: 'Pending', color: 'orange', icon: '⏳' },
-      suspicious: { label: 'Suspicious', color: 'red', icon: '⚠️' },
-      duplicate: { label: 'Duplicate', color: 'red', icon: '🔄' },
-      genuine: { label: 'Genuine', color: 'green', icon: '✓' },
-      registered: { label: 'Registered', color: 'blue', icon: '✓' },
-      generated: { label: 'Generated', color: 'green', icon: '✓' },
+      verified: { label: 'Verified', color: 'green' },
+      pending: { label: 'Pending', color: 'orange' },
+      suspicious: { label: 'Suspicious', color: 'red' },
+      duplicate: { label: 'Duplicate', color: 'red' },
+      genuine: { label: 'Genuine', color: 'green' },
+      registered: { label: 'Registered', color: 'blue' },
+      generated: { label: 'Generated', color: 'green' },
     }
-    return configs[status.toLowerCase()] || { label: status, color: 'gray', icon: '' }
+    return configs[status.toLowerCase()] || { label: status, color: 'gray' }
   }
 
   const config = getStatusConfig(status)
@@ -23,16 +23,15 @@ const StatusBadge = ({ status, size = 'medium' }) => {
   }
 
   const colorClasses = {
-    green: 'bg-green-100 text-green-800',
-    red: 'bg-red-100 text-red-800',
-    orange: 'bg-orange-100 text-orange-800',
-    blue: 'bg-blue-100 text-blue-800',
-    gray: 'bg-gray-100 text-gray-600'
+    green: 'bg-green-50 text-green-700 border border-green-200',
+    red: 'bg-red-50 text-red-700 border border-red-200',
+    orange: 'bg-orange-50 text-orange-700 border border-orange-200',
+    blue: 'bg-blue-50 text-blue-700 border border-blue-200',
+    gray: 'bg-gray-50 text-gray-600 border border-gray-200'
   }
 
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full font-medium ${sizeClasses[size]} ${colorClasses[config.color]}`}>
-      {config.icon && <span>{config.icon}</span>}
+    <span className={`inline-flex items-center rounded-full font-medium ${sizeClasses[size]} ${colorClasses[config.color]}`}>
       {config.label}
     </span>
   )

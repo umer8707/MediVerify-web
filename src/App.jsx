@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
+import ManufacturerRegistration from './pages/ManufacturerRegistration'
 import Dashboard from './pages/Dashboard'
+import AdminDashboard from './pages/AdminDashboard'
 import BatchRegistration from './pages/BatchRegistration'
 import QRManagement from './pages/QRManagement'
 import ScanActivity from './pages/ScanActivity'
@@ -49,13 +51,28 @@ function App() {
               <Login onLogin={handleLogin} />
           } 
         />
+        <Route 
+          path="/register" 
+          element={
+            isAuthenticated ? 
+              <Navigate to="/dashboard" replace /> : 
+              <ManufacturerRegistration />
+          } 
+        />
         <Route
           path="/*"
           element={
             isAuthenticated ? (
               <Layout userRole={userRole} onLogout={handleLogout}>
                 <Routes>
-                  <Route path="/dashboard" element={<Dashboard userRole={userRole} />} />
+                  <Route 
+                    path="/dashboard" 
+                    element={
+                      userRole === 'admin' ? 
+                        <AdminDashboard /> : 
+                        <Dashboard userRole={userRole} />
+                    } 
+                  />
                   <Route path="/batch-registration" element={<BatchRegistration userRole={userRole} />} />
                   <Route path="/qr-management" element={<QRManagement userRole={userRole} />} />
                   <Route path="/scan-activity" element={<ScanActivity userRole={userRole} />} />

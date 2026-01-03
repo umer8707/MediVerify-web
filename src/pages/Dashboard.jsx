@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import { IoCubeOutline, IoMedicalOutline, IoScanOutline, IoWarningOutline } from 'react-icons/io5'
 import KPICard from '../components/KPICard'
 import { mockKPIs, mockScanData, mockGenuineVsSuspicious, mockTopCities } from '../data/mockData'
 
@@ -62,32 +63,33 @@ const Dashboard = ({ userRole }) => {
         <p className="text-gray-600">Real-time monitoring of pharmaceutical product authenticity</p>
       </div>
 
+      {/* Manufacturer-specific KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         <KPICard
           title="Total Batches Registered"
           value={mockKPIs.totalBatches.toLocaleString()}
-          icon="📦"
+          icon={IoCubeOutline}
           color="blue"
           trend={{ type: 'up', value: '+12% from last month' }}
         />
         <KPICard
           title="Total Products Issued"
           value={mockKPIs.totalProducts.toLocaleString()}
-          icon="💊"
+          icon={IoMedicalOutline}
           color="green"
           trend={{ type: 'up', value: '+8% from last month' }}
         />
         <KPICard
           title="Total QR Scans"
           value={mockKPIs.totalScans.toLocaleString()}
-          icon="📱"
+          icon={IoScanOutline}
           color="blue"
           trend={{ type: 'up', value: '+15% from last month' }}
         />
         <KPICard
-          title="Counterfeit Alerts"
+          title="Counterfeit Alerts Detected"
           value={mockKPIs.counterfeitAlerts}
-          icon="⚠️"
+          icon={IoWarningOutline}
           color="red"
           trend={{ type: 'down', value: '-3 from last month' }}
         />

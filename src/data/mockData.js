@@ -13,8 +13,8 @@ export const mockScanData = {
     {
       label: 'QR Scans',
       data: [3200, 4100, 3800, 5200, 6100, 7200, 8900, 10200, 9800, 11200, 12400, 13500],
-      borderColor: '#1e3a8a',
-      backgroundColor: 'rgba(30, 58, 138, 0.1)',
+      borderColor: '#007AFF',
+      backgroundColor: 'rgba(0, 122, 255, 0.1)',
       tension: 0.4
     }
   ]
@@ -25,7 +25,7 @@ export const mockGenuineVsSuspicious = {
   datasets: [
     {
       data: [89211, 23],
-      backgroundColor: ['#10b981', '#ef4444'],
+      backgroundColor: ['#34C759', '#FF3B30'],
       borderWidth: 0
     }
   ]
@@ -37,7 +37,7 @@ export const mockTopCities = {
     {
       label: 'Scans',
       data: [15200, 12800, 9800, 7200, 6100],
-      backgroundColor: '#3b82f6'
+      backgroundColor: '#007AFF'
     }
   ]
 }
@@ -199,4 +199,33 @@ export const mockCounterfeitTrends = {
     }
   ]
 }
+
+// Sample manufacturer registrations (for admin approval flow)
+export const mockManufacturerRegistrations = [
+  {
+    id: 'REG-20241115001',
+    companyName: 'MediPharm Solutions',
+    licenseNumber: 'DRAP-2024-12345',
+    contactEmail: 'contact@medipharm.com',
+    status: 'pending',
+    submittedAt: '2024-11-10T10:30:00Z'
+  },
+  {
+    id: 'REG-20241114001',
+    companyName: 'HealthCare Manufacturing Ltd.',
+    licenseNumber: 'DRAP-2024-12346',
+    contactEmail: 'info@healthcaremfg.com',
+    status: 'pending',
+    submittedAt: '2024-11-09T14:20:00Z'
+  },
+  {
+    id: 'REG-20241112001',
+    companyName: 'PharmaCorp Industries',
+    licenseNumber: 'DRAP-2024-12340',
+    contactEmail: 'admin@pharmacorp.com',
+    status: 'approved',
+    submittedAt: '2024-11-05T09:15:00Z',
+    approvedAt: '2024-11-08T11:00:00Z'
+  }
+]
 

@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary-blue': '#1e3a8a',
-        'deep-blue': '#1e40af',
-        'light-blue': '#3b82f6',
-        'success-green': '#10b981',
-        'alert-red': '#ef4444',
-        'warning-orange': '#f59e0b',
+        'primary-blue': '#007AFF',
+        'deep-blue': '#0051D5',
+        'light-blue': '#5AC8FA',
+        'success-green': '#34C759',
+        'alert-red': '#FF3B30',
+        'warning-orange': '#FF9500',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -21,4 +21,6 @@ export default {
   },
   plugins: [],
 }
+
+
 

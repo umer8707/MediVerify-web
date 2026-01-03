@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoSaveOutline, IoWarningOutline, IoAddOutline, IoTrashOutline } from 'react-icons/io5'
 import StatusBadge from '../components/StatusBadge'
 
 const Settings = ({ userRole }) => {
@@ -78,7 +79,7 @@ const Settings = ({ userRole }) => {
                   name="companyName"
                   value={manufacturerProfile.companyName}
                   onChange={handleProfileChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 />
               </div>
               <div>
@@ -89,7 +90,7 @@ const Settings = ({ userRole }) => {
                   name="registrationNumber"
                   value={manufacturerProfile.registrationNumber}
                   onChange={handleProfileChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 />
               </div>
               <div>
@@ -100,7 +101,7 @@ const Settings = ({ userRole }) => {
                   value={manufacturerProfile.address}
                   onChange={handleProfileChange}
                   rows="3"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition resize-y"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition resize-y"
                 />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -112,7 +113,7 @@ const Settings = ({ userRole }) => {
                     name="contactEmail"
                     value={manufacturerProfile.contactEmail}
                     onChange={handleProfileChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                   />
                 </div>
                 <div>
@@ -123,16 +124,19 @@ const Settings = ({ userRole }) => {
                     name="contactPhone"
                     value={manufacturerProfile.contactPhone}
                     onChange={handleProfileChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                   />
                 </div>
               </div>
               <div>
                 <button
                   onClick={handleSaveProfile}
-                  className="w-full px-6 py-3 bg-primary-blue text-white rounded-lg font-semibold hover:bg-deep-blue transition-colors"
+                  className="w-full px-6 py-3 bg-[#007AFF] text-white rounded-lg font-semibold hover:bg-[#0051D5] transition-colors"
                 >
-                  💾 Save Changes
+                  <span className="flex items-center justify-center gap-2">
+                    <IoSaveOutline />
+                    <span>Save Changes</span>
+                  </span>
                 </button>
               </div>
             </div>
@@ -152,11 +156,11 @@ const Settings = ({ userRole }) => {
               </div>
               <div className="flex justify-between items-start py-3 border-b border-gray-200">
                 <span className="text-sm font-medium text-gray-600">Smart Contract:</span>
-                <span className="text-xs font-mono text-primary-blue break-all text-right">0x8ba1f109551bD432803012645Hac136c22C37e09</span>
+                <span className="text-xs font-mono text-[#007AFF] break-all text-right">0x8ba1f109551bD432803012645Hac136c22C37e09</span>
               </div>
               <div className="flex justify-between items-start py-3 border-b border-gray-200">
                 <span className="text-sm font-medium text-gray-600">Wallet Address:</span>
-                <span className="text-xs font-mono text-primary-blue break-all text-right">
+                <span className="text-xs font-mono text-[#007AFF] break-all text-right">
                   {manufacturerProfile.blockchainAddress}
                 </span>
               </div>
@@ -166,7 +170,10 @@ const Settings = ({ userRole }) => {
               </div>
             </div>
             <div className="p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
-              <p className="text-xs text-yellow-800">⚠️ Blockchain settings are read-only. Contact system administrator for changes.</p>
+              <p className="text-xs text-yellow-800 flex items-start gap-2">
+                <IoWarningOutline className="text-base flex-shrink-0 mt-0.5" />
+                <span>Blockchain settings are read-only. Contact system administrator for changes.</span>
+              </p>
             </div>
           </div>
         </div>
@@ -181,9 +188,12 @@ const Settings = ({ userRole }) => {
             </div>
             <button
               onClick={() => setShowAddUser(!showAddUser)}
-              className="px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-deep-blue transition-colors text-sm"
+              className="px-4 py-2 bg-[#007AFF] text-white rounded-lg font-medium hover:bg-[#0051D5] transition-colors text-sm"
             >
-              ➕ Add New User
+              <span className="flex items-center gap-2">
+                <IoAddOutline />
+                <span>Add New User</span>
+              </span>
             </button>
           </div>
 
@@ -198,7 +208,7 @@ const Settings = ({ userRole }) => {
                       id="newUserName"
                       value={newUser.name}
                       onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                       required
                     />
                   </div>
@@ -209,7 +219,7 @@ const Settings = ({ userRole }) => {
                       id="newUserEmail"
                       value={newUser.email}
                       onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                       required
                     />
                   </div>
@@ -219,7 +229,7 @@ const Settings = ({ userRole }) => {
                       id="newUserRole"
                       value={newUser.role}
                       onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                     >
                       <option value="analyst">Analyst</option>
                       <option value="admin">Admin</option>
@@ -229,7 +239,7 @@ const Settings = ({ userRole }) => {
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="px-6 py-3 bg-primary-blue text-white rounded-lg font-semibold hover:bg-deep-blue transition-colors"
+                    className="px-6 py-3 bg-[#007AFF] text-white rounded-lg font-semibold hover:bg-[#0051D5] transition-colors"
                   >
                     Add User
                   </button>
@@ -281,7 +291,10 @@ const Settings = ({ userRole }) => {
                           className="px-3 py-1 text-xs text-red-600 border border-red-600 rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           disabled={user.role === 'admin' && users.filter(u => u.role === 'admin').length === 1}
                         >
-                          🗑️ Delete
+                          <span className="flex items-center gap-1">
+                            <IoTrashOutline />
+                            <span>Delete</span>
+                          </span>
                         </button>
                       </td>
                     </tr>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoCheckmarkCircle } from 'react-icons/io5'
 import StatusBadge from '../components/StatusBadge'
 
 const BatchRegistration = ({ userRole }) => {
@@ -61,10 +62,11 @@ const BatchRegistration = ({ userRole }) => {
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Batch Registration</h1>
         </div>
         <div className="bg-white rounded-xl p-8 sm:p-12 shadow-sm text-center">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-5xl mx-auto mb-6">
-            ✓
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <IoCheckmarkCircle className="text-5xl text-green-600" />
           </div>
           <h2 className="text-2xl font-semibold text-gray-900 mb-8">Batch Successfully Registered on Blockchain</h2>
+          <p className="text-gray-600 mb-6">Your batch has been registered. You can now generate QR codes for this batch.</p>
           <div className="bg-gray-50 rounded-lg p-6 mb-6 text-left space-y-4">
             <div className="flex justify-between items-center py-3 border-b border-gray-200">
               <span className="text-sm font-medium text-gray-600">Batch ID:</span>
@@ -76,7 +78,7 @@ const BatchRegistration = ({ userRole }) => {
             </div>
             <div className="flex justify-between items-start py-3 border-b border-gray-200">
               <span className="text-sm font-medium text-gray-600">Blockchain Hash:</span>
-              <span className="text-xs font-mono text-primary-blue break-all text-right">{registeredBatch.blockchainHash}</span>
+              <span className="text-xs font-mono text-[#007AFF] break-all text-right">{registeredBatch.blockchainHash}</span>
             </div>
             <div className="flex justify-between items-center py-3">
               <span className="text-sm font-medium text-gray-600">Status:</span>
@@ -113,7 +115,7 @@ const BatchRegistration = ({ userRole }) => {
                 value={formData.medicineName}
                 onChange={handleChange}
                 placeholder="e.g., Paracetamol 500mg"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 required
               />
             </div>
@@ -129,7 +131,7 @@ const BatchRegistration = ({ userRole }) => {
                 value={formData.batchId}
                 onChange={handleChange}
                 placeholder="Auto-generated if left empty"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
               />
               <small className="text-xs text-gray-500 mt-1 block">Leave empty to auto-generate</small>
             </div>
@@ -146,7 +148,7 @@ const BatchRegistration = ({ userRole }) => {
                 name="manufacturingDate"
                 value={formData.manufacturingDate}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 required
               />
             </div>
@@ -161,7 +163,7 @@ const BatchRegistration = ({ userRole }) => {
                 name="expiryDate"
                 value={formData.expiryDate}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 required
               />
             </div>
@@ -180,7 +182,7 @@ const BatchRegistration = ({ userRole }) => {
                 onChange={handleChange}
                 placeholder="e.g., 10000"
                 min="1"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
                 required
               />
             </div>
@@ -196,7 +198,7 @@ const BatchRegistration = ({ userRole }) => {
                 value={formData.digitalSignature}
                 onChange={handleChange}
                 placeholder="Optional: Digital signature hash"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
               />
               <small className="text-xs text-gray-500 mt-1 block">Cryptographic signature for batch authentication</small>
             </div>
@@ -205,9 +207,9 @@ const BatchRegistration = ({ userRole }) => {
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-primary-blue text-white rounded-lg font-semibold hover:bg-deep-blue transition-colors"
+              className="flex-1 px-6 py-3 bg-[#007AFF] text-white rounded-lg font-semibold hover:bg-[#0051D5] transition-colors"
             >
-              🔗 Register on Blockchain
+              Register Batch on Blockchain
             </button>
             <button
               type="button"
@@ -228,22 +230,22 @@ const BatchRegistration = ({ userRole }) => {
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">ℹ️ Blockchain Registration Information</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Blockchain Registration Information</h3>
         <ul className="space-y-3">
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">All batch data is permanently stored on Ethereum blockchain</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Each registration creates an immutable transaction record</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Blockchain hash is generated automatically upon registration</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="text-primary-blue font-bold mt-1">•</span>
+            <span className="text-[#007AFF] font-bold mt-1">•</span>
             <span className="text-sm text-gray-600">Registered batches can be verified by anyone using the blockchain hash</span>
           </li>
         </ul>

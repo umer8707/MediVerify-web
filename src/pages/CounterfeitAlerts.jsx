@@ -1,4 +1,5 @@
 import React from 'react'
+import { IoWarningOutline, IoAlertCircleOutline, IoInformationCircleOutline, IoLocationOutline, IoCubeOutline, IoMedicalOutline, IoTimeOutline } from 'react-icons/io5'
 import { mockAlerts } from '../data/mockData'
 
 const CounterfeitAlerts = ({ userRole }) => {
@@ -13,11 +14,11 @@ const CounterfeitAlerts = ({ userRole }) => {
 
   const getSeverityIcon = (severity) => {
     const icons = {
-      high: '🔴',
-      medium: '🟠',
-      low: '🟡'
+      high: <IoAlertCircleOutline className="text-2xl text-red-500" />,
+      medium: <IoWarningOutline className="text-2xl text-orange-500" />,
+      low: <IoInformationCircleOutline className="text-2xl text-yellow-500" />
     }
-    return icons[severity] || '⚪'
+    return icons[severity] || <IoInformationCircleOutline className="text-2xl text-gray-400" />
   }
 
   const getSeverityBorderColor = (severity) => {
@@ -37,8 +38,10 @@ const CounterfeitAlerts = ({ userRole }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-red-500 flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">🔴</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-red-500 flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+            <IoAlertCircleOutline className="text-2xl text-red-500" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">
               {mockAlerts.filter(a => a.severity === 'high').length}
@@ -46,8 +49,10 @@ const CounterfeitAlerts = ({ userRole }) => {
             <div className="text-sm text-gray-600 font-medium">High Priority Alerts</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500 flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">🟠</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-orange-500 flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center">
+            <IoWarningOutline className="text-2xl text-orange-500" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">
               {mockAlerts.filter(a => a.severity === 'medium').length}
@@ -55,8 +60,10 @@ const CounterfeitAlerts = ({ userRole }) => {
             <div className="text-sm text-gray-600 font-medium">Medium Priority Alerts</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-primary-blue flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">⚠️</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-[#007AFF] flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
+            <IoWarningOutline className="text-2xl text-[#007AFF]" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">{mockAlerts.length}</div>
             <div className="text-sm text-gray-600 font-medium">Total Active Alerts</div>
@@ -69,8 +76,8 @@ const CounterfeitAlerts = ({ userRole }) => {
           <div key={alert.id} className={`bg-white rounded-xl p-6 shadow-sm border-l-4 ${getSeverityBorderColor(alert.severity)} hover:shadow-md transition-shadow`}>
             <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200">
               <div className="flex items-center gap-2 font-mono text-sm font-semibold text-gray-900">
-                <span>{getSeverityIcon(alert.severity)}</span>
-                {alert.id}
+                {getSeverityIcon(alert.severity)}
+                <span>{alert.id}</span>
               </div>
               <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase ${
                 alert.severity === 'high' ? 'bg-red-100 text-red-800' :
@@ -81,29 +88,44 @@ const CounterfeitAlerts = ({ userRole }) => {
               </span>
             </div>
             <div className="space-y-3 mb-4">
-              <div className="flex items-start justify-between">
-                <span className="text-sm font-medium text-gray-600">📍 Location:</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                  <IoLocationOutline className="text-gray-400" />
+                  <span>Location:</span>
+                </span>
                 <span className="text-sm font-semibold text-gray-900 text-right">{alert.location}</span>
               </div>
-              <div className="flex items-start justify-between">
-                <span className="text-sm font-medium text-gray-600">📦 Batch ID:</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                  <IoCubeOutline className="text-gray-400" />
+                  <span>Batch ID:</span>
+                </span>
                 <span className="text-sm font-semibold text-gray-900 font-mono">{alert.batchId}</span>
               </div>
-              <div className="flex items-start justify-between">
-                <span className="text-sm font-medium text-gray-600">💊 Product ID:</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                  <IoMedicalOutline className="text-gray-400" />
+                  <span>Product ID:</span>
+                </span>
                 <span className="text-sm font-semibold text-gray-900 font-mono">{alert.productId}</span>
               </div>
-              <div className="flex items-start justify-between">
-                <span className="text-sm font-medium text-gray-600">⚠️ Reason:</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                  <IoWarningOutline className="text-gray-400" />
+                  <span>Reason:</span>
+                </span>
                 <span className="text-sm font-semibold text-red-600 text-right">{alert.reason}</span>
               </div>
-              <div className="flex items-start justify-between">
-                <span className="text-sm font-medium text-gray-600">🕐 Detected:</span>
+              <div className="flex items-start justify-between gap-2">
+                <span className="text-sm font-medium text-gray-600 flex items-center gap-1">
+                  <IoTimeOutline className="text-gray-400" />
+                  <span>Detected:</span>
+                </span>
                 <span className="text-sm font-semibold text-gray-900">{alert.timestamp}</span>
               </div>
             </div>
             <div className="flex gap-3 pt-4 border-t border-gray-200">
-              <button className="flex-1 px-4 py-2 bg-primary-blue text-white rounded-lg font-medium hover:bg-deep-blue transition-colors text-sm">
+              <button className="flex-1 px-4 py-2 bg-[#007AFF] text-white rounded-lg font-medium hover:bg-[#0051D5] transition-colors text-sm">
                 Investigate
               </button>
               <button className="flex-1 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors text-sm">

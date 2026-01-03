@@ -1,23 +1,37 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { 
+  IoShieldCheckmark, 
+  IoStatsChart, 
+  IoCubeOutline, 
+  IoQrCodeOutline, 
+  IoScanOutline, 
+  IoWarningOutline, 
+  IoDocumentTextOutline, 
+  IoSettingsOutline,
+  IoLogOutOutline,
+  IoMenuOutline
+} from 'react-icons/io5'
 
 const Layout = ({ children, userRole, onLogout }) => {
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const navItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/batch-registration', label: 'Batch Registration', icon: '📦', adminOnly: true },
-    { path: '/qr-management', label: 'QR Management', icon: '🔲', adminOnly: true },
-    { path: '/scan-activity', label: 'Scan Activity', icon: '📱' },
-    { path: '/counterfeit-alerts', label: 'Alerts', icon: '⚠️' },
-    { path: '/reports', label: 'Reports', icon: '📈' },
-    { path: '/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/dashboard', label: 'Dashboard', icon: IoStatsChart },
+    { path: '/batch-registration', label: 'Batch Registration', icon: IoCubeOutline, manufacturerOnly: true },
+    { path: '/qr-management', label: 'QR Management', icon: IoQrCodeOutline, manufacturerOnly: true },
+    { path: '/scan-activity', label: 'Scan Activity', icon: IoScanOutline },
+    { path: '/counterfeit-alerts', label: 'Alerts', icon: IoWarningOutline },
+    { path: '/reports', label: 'Reports', icon: IoDocumentTextOutline },
+    { path: '/settings', label: 'Settings', icon: IoSettingsOutline },
   ]
 
-  const filteredNavItems = navItems.filter(item => 
-    !item.adminOnly || userRole === 'admin'
-  )
+  const filteredNavItems = navItems.filter(item => {
+    if (item.manufacturerOnly && userRole === 'admin') return false
+    if (item.adminOnly && userRole !== 'admin') return false
+    return true
+  })
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -27,7 +41,7 @@ const Layout = ({ children, userRole, onLogout }) => {
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-md"
         aria-label="Toggle menu"
       >
-        <span className="text-2xl">☰</span>
+        <IoMenuOutline className="text-xl text-gray-700" />
       </button>
 
       {/* Sidebar */}
@@ -40,10 +54,10 @@ const Layout = ({ children, userRole, onLogout }) => {
       `}>
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">💊</span>
+            <IoShieldCheckmark className="text-3xl text-[#007AFF]" />
             <div>
-              <h2 className="text-xl font-bold text-primary-blue">PharmaAuth</h2>
-              <p className="text-xs text-gray-500">Blockchain Verification</p>
+              <h2 className="text-xl font-bold text-[#007AFF]">MediVerify</h2>
+              <p className="text-xs text-gray-500">Verify Medicines. Protect Lives.</p>
             </div>
           </div>
         </div>
@@ -58,12 +72,12 @@ const Layout = ({ children, userRole, onLogout }) => {
                 flex items-center gap-3 px-4 py-3 mb-2 rounded-lg
                 transition-colors duration-200
                 ${location.pathname === item.path
-                  ? 'bg-blue-50 text-primary-blue font-medium border-l-4 border-primary-blue'
+                  ? 'bg-blue-50 text-[#007AFF] font-medium border-l-4 border-[#007AFF]'
                   : 'text-gray-600 hover:bg-gray-50'
                 }
               `}
             >
-              <span className="text-lg">{item.icon}</span>
+              <item.icon className={`text-lg ${location.pathname === item.path ? 'text-[#007AFF]' : 'text-gray-500'}`} />
               <span className="text-sm">{item.label}</span>
             </Link>
           ))}
@@ -72,14 +86,15 @@ const Layout = ({ children, userRole, onLogout }) => {
         <div className="p-4 border-t border-gray-200 space-y-3">
           <div className="px-4">
             <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
-              {userRole === 'admin' ? 'Admin' : 'Analyst'}
+              {userRole === 'admin' ? 'Admin / Regulator' : 'Manufacturer'}
             </span>
           </div>
           <button
             onClick={onLogout}
-            className="w-full px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
           >
-            🚪 Logout
+            <IoLogOutOutline className="text-base" />
+            <span>Logout</span>
           </button>
         </div>
       </aside>

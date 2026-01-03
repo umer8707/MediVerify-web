@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { IoShieldCheckmark } from 'react-icons/io5'
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('admin')
+  const [role, setRole] = useState('manufacturer')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
@@ -22,14 +23,17 @@ const Login = ({ onLogin }) => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-blue to-deep-blue p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-10">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-10">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="text-5xl">💊</span>
-            <h1 className="text-3xl font-bold text-primary-blue">PharmaAuth</h1>
+          <div className="flex flex-col items-center justify-center mb-4">
+            <IoShieldCheckmark className="text-[64px] text-[#007AFF] mb-3" />
+            <h1 className="text-3xl font-bold text-[#007AFF] mb-2">MediVerify</h1>
+            <p className="text-sm text-gray-500 font-medium">
+              Verify Medicines. Protect Lives.
+            </p>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-xs text-gray-500 mt-2">
             Blockchain & AI-Based Pharmaceutical Verification System
           </p>
         </div>
@@ -50,8 +54,8 @@ const Login = ({ onLogin }) => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@pharma.com"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+              placeholder="user@pharma.com"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
               required
             />
           </div>
@@ -66,7 +70,7 @@ const Login = ({ onLogin }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
               required
             />
           </div>
@@ -79,28 +83,38 @@ const Login = ({ onLogin }) => {
               id="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none transition"
             >
-              <option value="admin">Manufacturer Admin</option>
-              <option value="analyst">Manufacturer Analyst</option>
+              <option value="manufacturer">Manufacturer</option>
+              <option value="admin">Admin / Regulator</option>
             </select>
             <small className="text-xs text-gray-500 mt-1 block">
               {role === 'admin' 
-                ? 'Full access to all features' 
-                : 'Read-only access to analytics'}
+                ? 'Admin access: Approve manufacturers, view all data' 
+                : 'Manufacturer access: Register batches, view analytics'}
             </small>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-primary-blue text-white rounded-lg font-semibold hover:bg-deep-blue transition-colors active:scale-98"
+            className="w-full py-3 bg-[#007AFF] text-white rounded-lg font-semibold hover:bg-[#0051D5] transition-colors"
           >
-            🔐 Sign In
+            Sign In
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">Secure blockchain-based authentication</p>
+        <div className="mt-6 text-center space-y-2">
+          <p className="text-xs text-gray-500">New manufacturer?</p>
+          <Link 
+            to="/register" 
+            className="text-sm text-[#007AFF] hover:text-[#0051D5] font-medium"
+          >
+            Register Your Company →
+          </Link>
+        </div>
+
+        <div className="mt-4 text-center">
+          <p className="text-xs text-gray-400">Secure blockchain-based authentication</p>
         </div>
       </div>
     </div>

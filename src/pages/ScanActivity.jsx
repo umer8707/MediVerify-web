@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoPersonOutline, IoMedicalOutline, IoCarOutline, IoPhonePortraitOutline, IoCheckmarkCircle, IoWarningOutline, IoLocationOutline, IoGlobeOutline, IoSearchOutline } from 'react-icons/io5'
 import StatusBadge from '../components/StatusBadge'
 import { mockScanLogs } from '../data/mockData'
 
@@ -12,11 +13,12 @@ const ScanActivity = ({ userRole }) => {
 
   const getRoleIcon = (role) => {
     const icons = {
-      'Consumer': '👤',
-      'Pharmacy': '🏥',
-      'Distributor': '🚚'
+      'Consumer': IoPersonOutline,
+      'Pharmacy': IoMedicalOutline,
+      'Distributor': IoCarOutline
     }
-    return icons[role] || '📱'
+    const IconComponent = icons[role] || IoPhonePortraitOutline
+    return <IconComponent className="text-lg" />
   }
 
   const filteredScans = scans.filter(scan => {
@@ -34,6 +36,12 @@ const ScanActivity = ({ userRole }) => {
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Scan Activity & Traceability</h1>
         <p className="text-gray-600">Monitor real-time QR code scan activity across the supply chain</p>
+        <div className="mt-3 p-3 bg-blue-50 border-l-4 border-blue-500 rounded text-sm text-blue-800">
+          <span className="flex items-start gap-2">
+            <IoPhonePortraitOutline className="text-lg mt-0.5 flex-shrink-0" />
+            <span><strong>Note:</strong> Scan activity is recorded from the consumer mobile application. All scan data appears here in real-time for monitoring and analysis.</span>
+          </span>
+        </div>
       </div>
 
       <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
@@ -46,7 +54,7 @@ const ScanActivity = ({ userRole }) => {
               id="filter-date"
               value={filters.date}
               onChange={(e) => setFilters({ ...filters, date: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none"
             />
           </div>
           <div>
@@ -55,7 +63,7 @@ const ScanActivity = ({ userRole }) => {
               id="filter-city"
               value={filters.city}
               onChange={(e) => setFilters({ ...filters, city: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none"
             >
               <option value="">All Cities</option>
               {uniqueCities.map(city => (
@@ -69,7 +77,7 @@ const ScanActivity = ({ userRole }) => {
               id="filter-status"
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#007AFF] focus:border-transparent outline-none"
             >
               <option value="">All Statuses</option>
               {uniqueStatuses.map(status => (
@@ -111,7 +119,7 @@ const ScanActivity = ({ userRole }) => {
                 <tr>
                   <td colSpan="6" className="px-4 py-12 text-center">
                     <div className="flex flex-col items-center gap-3">
-                      <span className="text-5xl opacity-50">🔍</span>
+                      <IoSearchOutline className="text-5xl text-gray-300" />
                       <p className="text-base font-medium text-gray-900">No scans found matching the filters</p>
                     </div>
                   </td>
@@ -120,20 +128,20 @@ const ScanActivity = ({ userRole }) => {
                 filteredScans.map((scan, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-4 py-4">
-                      <span className="font-mono font-semibold text-primary-blue text-sm">{scan.productId}</span>
+                      <span className="font-mono font-semibold text-[#007AFF] text-sm">{scan.productId}</span>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="font-mono font-semibold text-primary-blue text-sm">{scan.batchId}</span>
+                      <span className="font-mono font-semibold text-[#007AFF] text-sm">{scan.batchId}</span>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-2">
-                        <span className="text-lg">{getRoleIcon(scan.scanRole)}</span>
+                        {getRoleIcon(scan.scanRole)}
                         <span className="text-sm text-gray-700">{scan.scanRole}</span>
                       </div>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-2">
-                        <span>📍</span>
+                        <IoLocationOutline className="text-gray-400" />
                         <span className="text-sm text-gray-700">{scan.location}</span>
                       </div>
                     </td>
@@ -151,14 +159,18 @@ const ScanActivity = ({ userRole }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">📱</div>
+          <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center">
+            <IoPhonePortraitOutline className="text-2xl text-[#007AFF]" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">{scans.length}</div>
             <div className="text-sm text-gray-600 font-medium">Total Scans</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">✓</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center">
+            <IoCheckmarkCircle className="text-2xl text-[#34C759]" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">
               {scans.filter(s => s.status === 'genuine').length}
@@ -166,8 +178,10 @@ const ScanActivity = ({ userRole }) => {
             <div className="text-sm text-gray-600 font-medium">Genuine Scans</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">⚠️</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center">
+            <IoWarningOutline className="text-2xl text-[#FF3B30]" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">
               {scans.filter(s => s.status === 'suspicious' || s.status === 'duplicate').length}
@@ -175,8 +189,10 @@ const ScanActivity = ({ userRole }) => {
             <div className="text-sm text-gray-600 font-medium">Suspicious/Duplicate</div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4">
-          <div className="text-3xl w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">🌍</div>
+        <div className="bg-white rounded-xl p-6 shadow-sm flex items-center gap-4 border border-gray-100">
+          <div className="w-14 h-14 bg-gray-50 rounded-xl flex items-center justify-center">
+            <IoGlobeOutline className="text-2xl text-gray-600" />
+          </div>
           <div>
             <div className="text-2xl font-bold text-gray-900">{uniqueCities.length}</div>
             <div className="text-sm text-gray-600 font-medium">Cities</div>
